@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Telefonspiel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/Client/css/styles.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Bilder-📞</h1>
+        <form class="form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <button class="button-primary">Anmelden</button>
+        </form>
+        <div class="row" id="interface">
+            <div class="ten columns">
+                <div id="canvas-holder">
+                    <button class="button-primary" id="rdybutton">Starten</button>
+                </div>
+            </div>
+            <div class="two columns" id="users">
+                <h1>Online Users</h1>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+        integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
+        integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
+        crossorigin="anonymous"></script>
+    <script src="js/socket.js"></script>
+    <script src="js/drawing.js"></script>
+
+</body>
+
+</html>
