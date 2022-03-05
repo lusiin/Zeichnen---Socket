@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/node_modules'));
 
 var tmp_image = fs.readFileSync('Images/rousseau.jpg', {encoding: 'base64'});;
 var playerlist = []
-var test;
+
 io.on('connection', (socket) => {
     var user_id = socket.id
     //console.log("User connected:" +socket.id);
