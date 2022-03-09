@@ -1,5 +1,5 @@
-var timer = 15
-var start_state = false;
+var timer = 16
+
 
 var winWidth = 800;
 var winHeight = 600;
@@ -54,7 +54,7 @@ function draw() {
 
 function mouseReleased() {
     //console.log(tmp_mX)
-    if (tmp_mX.length > 0 && tmp_mY.length > 0) {
+    if (start_state=true && tmp_mX.length > 0 && tmp_mY.length > 0) {
         append(mX, tmp_mX)
         append(mY, tmp_mY)
         tmp_mX = []
@@ -82,6 +82,7 @@ function drawTopBuffer(timer) {
     topBuffer.background(255, 255, 255);
     topBuffer.fill(0, 0, 0);
     topBuffer.textSize(22);
+    textAlign(CENTER);
     //topBuffer.rect(0,0, winHeight*top_scale, winHeight*top_scale)
     topBuffer.text("verbleibende Zeit:"+timer, winWidth / 2, winHeight * 0.15);
 }

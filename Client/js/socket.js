@@ -2,6 +2,8 @@ const form = document.querySelector("form");
 const canvas = document.querySelector("canvas-holder")
 var socket = io.connect('http://127.0.0.1:5000');
 
+var start_state = false;
+
 const rdybutton = document.getElementById("rdybutton")
 //const interface = document.querySelector("interface");
 //interface.getElementsByClassName.display = "none"
@@ -50,7 +52,7 @@ socket.on('new user', (username) => {
  socket.on("gamestart", () =>{
     console.log("game has started")
     rdybutton.remove();
-    start_state = true;
+    
     var myCanvas = createCanvas(winWidth, winHeight);
         myCanvas.parent("canvas-holder");
     /*fetch(image)
@@ -64,6 +66,7 @@ socket.on('new user', (username) => {
  });
 
  socket.on("turn",  (image)=>{
+    start_state = !start_state;
     console.log(image)
     if (image) {
         var raw = new Image();
