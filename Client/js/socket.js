@@ -3,6 +3,7 @@ const canvas = document.querySelector("canvas-holder")
 var socket = io.connect('http://127.0.0.1:5000');
 
 var start_state = false;
+var img;
 
 const rdybutton = document.getElementById("rdybutton")
 //const interface = document.querySelector("interface");
@@ -66,22 +67,18 @@ socket.on('new user', (username) => {
  });
 
  socket.on("start",  (image)=>{
-    start_state = !start_state;
-    if (image) {
-        var raw = new Image();
-        raw.src = "data:image/jpeg;base64," + image
-        raw.onload = function() {
-            img = createImage(raw.width, raw.height);
-            img.drawingContext.drawImage(raw, 0, 0);
-            drawLeftBuffer(img)
+    var raw = new Image();
+    raw.src = "data:image/jpeg;base64," + image
+    raw.onload = function () {
+        img = createImage(raw.width, raw.height);
+        img.drawingContext.drawImage(raw, 0, 0);
+        leftBuffer.image(img, 0, 0)
         }
-    }
-    //console.log(image)
-    //int_counter()
+    start = !start;
 });
 
 socket.on("turn", (pX, pY)=> {
-    leftBuffer(img = "", pX, pY)
+    leftBuffer(pX, pY)
 })
 
 var counter_element =  
