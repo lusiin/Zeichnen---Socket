@@ -1,5 +1,5 @@
-var timer = 16
-
+var timer = 10;
+var turn;
 
 var winWidth = 800;
 var winHeight = 600;
@@ -21,7 +21,7 @@ function setup() {
     frameRate(30)
     //var myCanvas = createCanvas(winWidth, winHeight);
     //    myCanvas.parent("canvas-holder");
-    topBuffer = createGraphics(winWidth, winHeight*top_scale)
+    topBuffer = createGraphics(winWidth, winHeight * top_scale)
     leftBuffer = createGraphics(winWidth / 2, 300);
     rightBuffer = createGraphics(winWidth / 2, 300);
     console.log(start_state)
@@ -32,16 +32,18 @@ function draw() {
     drawLeftBuffer(img);
     drawTopBuffer(timer)
     //image(topbuffer,0,0)
-    image(leftBuffer, 0, winHeight*0.2);
+    image(leftBuffer, 0, winHeight * 0.2);
     image(topBuffer, 0, 0)
-
-    if (frameCount % 60 == 0 && timer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
-        timer --;
-      }
-      if (timer == 0) {
-
-      }
-
+    if (turn = true) {
+        if (frameCount % 60 == 0 && timer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
+            timer--;
+        }
+        if (timer == 0) {
+            turn = false;
+            socket.emit("turn ended", mX, mY)
+            noLoop();
+        }
+    }
     stroke(1);
     //Mouse Input
     if (start_state = true && mouseX > winWidth / 2 && mouseIsPressed === true) {
@@ -54,7 +56,7 @@ function draw() {
 
 function mouseReleased() {
     //console.log(tmp_mX)
-    if (start_state=true && tmp_mX.length > 0 && tmp_mY.length > 0) {
+    if (start_state = true && tmp_mX.length > 0 && tmp_mY.length > 0) {
         append(mX, tmp_mX)
         append(mY, tmp_mY)
         tmp_mX = []
@@ -63,8 +65,13 @@ function mouseReleased() {
     }
 }
 
-function drawLeftBuffer(img) {
-    if (img == "") {
+function drawLeftBuffer(img, pX, pY) {
+    if (img == "" && pX.lenght >0) {
+        for(var ix = 1; ix<pX.length; ix++){
+            for (var iy = 1; iy<pY.length; iy ++){
+                leftBuffer.line(ix, iy, ix-1, iy-1)
+            }
+        }
     } else {
         leftBuffer.image(img, 0, 0, 400, 400)
     }
@@ -75,7 +82,7 @@ function drawRightBuffer(x, y, px, py) {
     //rightBuffer.textSize(32);
     //rightBuffer.text("This is the right buffer!", 50, 50);
 
-    line(x, y, px, py);
+    rightBuffer.line(x, y, px, py);
 }
 
 function drawTopBuffer(timer) {
@@ -84,7 +91,10 @@ function drawTopBuffer(timer) {
     topBuffer.textSize(22);
     textAlign(CENTER);
     //topBuffer.rect(0,0, winHeight*top_scale, winHeight*top_scale)
-    topBuffer.text("verbleibende Zeit:"+timer, winWidth / 2, winHeight * 0.15);
+    topBuffer.text("verbleibende Zeit:" + timer, winWidth / 2, winHeight * 0.15);
+    if (timer == 0){
+        topBuffer.text("Game Over");
+    }
 }
 
 function sendMessage() {

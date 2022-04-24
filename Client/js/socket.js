@@ -65,9 +65,8 @@ socket.on('new user', (username) => {
     //.then(response => drawLeftBuffer(response))*/
  });
 
- socket.on("turn",  (image)=>{
+ socket.on("start",  (image)=>{
     start_state = !start_state;
-    console.log(image)
     if (image) {
         var raw = new Image();
         raw.src = "data:image/jpeg;base64," + image
@@ -77,8 +76,13 @@ socket.on('new user', (username) => {
             drawLeftBuffer(img)
         }
     }
+    //console.log(image)
     //int_counter()
 });
+
+socket.on("turn", (pX, pY)=> {
+    leftBuffer(img = "", pX, pY)
+})
 
 var counter_element =  
 function int_counter(){

@@ -49,7 +49,6 @@ var gamestate = false;
 
 
 io.on('connection', (socket) => {
-    /*var user_id = uuidv4();*/
     console.log("User connected:" +socket.id);
     
 
@@ -103,11 +102,14 @@ io.on('connection', (socket) => {
             var player_iterator = Object.keys(users).length;
             console.log("Turn: "+ player_iterator)
             console.log(Object.keys(users)[0])
-            io.to(Object.keys(users)[0]).emit("turn", tmp_image.toString('base64'));
+            io.to(Object.keys(users)[0]).emit("start", tmp_image.toString('base64'));
         }
         
     });
-    
+    socket.on("turn ended", (mX, mY) => {
+        console.log("turn ended")
+        io.to(Object.keys(users)[1]).emit("turn", mX, mY);
+    })
 });
 
 server.listen(5000, ()=> {
